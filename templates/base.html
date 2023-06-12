@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cyber Security Incident Management System</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>Cyber Security Incident Management System</h1>
+    </header>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/incidents">Incidents</a></li>
+        <li><a href="/documentations">Documentations</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
+    </nav>
+    <main>
+      {% block content %}
+      <!-- Ide kerül az egyes oldalak tartalma -->
+      {% endblock %}
+    </main>
+    <footer>
+      <p>Copyright © 2023 t0m1</p>
+    </footer>
+  </body>
+</html>
