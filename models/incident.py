@@ -1,8 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from .mixin_model import MixinModel
-
-db = SQLAlchemy()
+from db import db
 
 class Incident(db.Model, MixinModel):
     __tablename__ = 'incidents'

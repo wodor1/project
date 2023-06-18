@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Register</h2>
+<form id="registerForm" method="POST" action="/register">
+  <div>
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+  </div>
+  <div>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+  </div>
+  <div>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+  </div>
+  <div>
+    <label for="password2">Confirm Password:</label>
+    <input type="password" id="password2" name="password2" required>
+  </div>
+  <div>
+    <label for="role">Role:</label>
+    <select name="role" id="role">
+      <option value="admin">Admin</option>
+      <option value="user">User</option>
+      <option value="tester">Tester</option>
+      <option value="analyst">Analyst</option>
+    </select>
+  </div>
+  <div>
+    <input type="submit" value="Register">
+  </div>
+</form>
+
+<script>
+document.getElementById('register-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const username = document.getElementById('username').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const password2 = document.getElementById('password2').value;
+  const role = document.getElementById('role').value;
+
+  if (password !== password2) {
+    // Handle password mismatch
+    alert("Passwords do not match");
+    return;
+  }
+
+  fetch('/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      username: username,
+      email: email,
+      password: password,
+      role: role
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.message) {
+      alert(data.message);
+    } else {
+      // Handle error
+      alert("An error occurred");
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+});
+</script>
+{% endblock %}

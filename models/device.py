@@ -1,8 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
-from flask_restful import Resource, reqparse
 from .mixin_model import MixinModel
-
-db = SQLAlchemy()
+from typing import TYPE_CHECKING
+from db import db
 
 class Device(db.Model, MixinModel):
     __tablename__ = 'devices'

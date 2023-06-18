@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from .mixin_model import MixinModel
-
-db = SQLAlchemy()
+from typing import TYPE_CHECKING
+from db import db
 
 class Network(db.Model, MixinModel):
     __tablename__ = 'networks'

@@ -8,12 +8,22 @@ class UserResource(Resource):
                         required=True,
                         help="This field cannot be left blank!"
                         )
+    parser.add_argument('password',
+                        type=str,
+                        required=True,
+                        help="This field cannot be left blank!"
+                        )
     parser.add_argument('email',
                         type=str,
                         required=True,
                         help="This field cannot be left blank!"
                         )
-
+    parser.add_argument('role',
+                        type=str,
+                        required=False,
+                        help="This field can be left blank!"
+                        )
+    
     def get(self, user_id):
         user = User.find_by_id(user_id)
         if user:

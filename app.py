@@ -1,8 +1,13 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify
 from flask_restful import Api
+from flask_sqlalchemy import SQLAlchemy
+from flask_jwt_extended import JWTManager
+from flask_cors import CORS
+import os
 from db import db
-from models.mixin_model import MixinModel
+from web_auth import init_app as init_auth_app
 
+from models.mixin_model import MixinModel
 from models.user import User
 from models.device import Device
 from models.incident import Incident
@@ -14,18 +19,29 @@ from resources.user import UserResource, UserListResource
 from resources.device import DeviceResource, DeviceListResource
 from resources.incident import IncidentResource, IncidentListResource
 from resources.network import NetworkResource, NetworkListResource
+from resources.incident_device import Incident_DeviceResource
+from resources.incident_network import Incident_NetworkResource
+from resources.auth import Auth, Register
+from resources.register import UserRegister
 
 app = Flask(__name__)
-api = Api(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+db_path: str = os.path.join(os.path.dirname(__file__), 'data.db')
+db_uri: str = f'sqlite:///{db_path}'
+
+app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
+app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# SQLAlchemy inicializálása
+api = Api(app)
+jwt = JWTManager(app)
+CORS(app)
+
 db.init_app(app)
+init_auth_app(app)
 
 @app.before_first_request
-def create_tables():
+def create_tables() -> None:
     db.create_all()
 
 @app.route('/')
@@ -44,14 +60,15 @@ def documentations():
 def about():
     return render_template('about.html.j2')
 
-@app.errorhandler(404)
-def not_found_error(error):
-    return render_template('404.html'), 404
-
-@app.errorhandler(500)
-def internal_error(error):
-    db.session.rollback()
-    return render_template('500.html'), 500
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        response = UserRegister().post()
+        if response[1] != 201:
+            return render_template('register.html.j2', error=response[0]['message'])
+        else:
+            return jsonify(response[0])
+    return render_template('register.html.j2')
 
 # API végpontok
 api.add_resource(UserResource, '/users', '/users/<int:user_id>')
@@ -62,6 +79,6 @@ api.add_resource(IncidentResource, '/incidents', '/incidents/<int:incident_id>')
 api.add_resource(IncidentListResource, '/incidents')
 api.add_resource(NetworkResource, '/networks', '/networks/<int:network_id>')
 api.add_resource(NetworkListResource, '/networks')
-
-if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+api.add_resource(Incident_DeviceResource, '/incidents/<int:incident_id>/devices/<int:device_id>')
+api.add_resource(Incident_NetworkResource, '/incidents/<int:incident_id>/networks/<int:network_id>')
+api.add_resource(Auth, '/auth')

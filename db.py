@@ -1,11 +1,10 @@
-# db.py
 from flask_sqlalchemy import SQLAlchemy
+from typing import TYPE_CHECKING
 
 db = SQLAlchemy()
 
-def init_db(app):
-    db.init_app(app)
-
-    @app.before_first_request
-    def create_tables():
-        db.create_all()
+if TYPE_CHECKING:
+  from flask_sqlalchemy.model import Model
+  BaseModel = db.make_declarative_base(Model)
+else:
+  BaseModel = db.Model
