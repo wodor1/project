@@ -1,5 +1,6 @@
 from flask_restful import Resource, reqparse
 from models.user import User
+from flask_jwt_extended import jwt_required
 
 class UserResource(Resource):
     parser = reqparse.RequestParser()
@@ -30,12 +31,14 @@ class UserResource(Resource):
             return user.json()
         return {'message': 'User not found'}, 404
 
+    @jwt_required()
     def post(self):
         data = UserResource.parser.parse_args()
         user = User(**data)
         user.save_to_db()
         return user.json(), 201
 
+    @jwt_required()
     def put(self, user_id):
         data = UserResource.parser.parse_args()
         user = User.find_by_id(user_id)
@@ -47,6 +50,7 @@ class UserResource(Resource):
             return user.json()
         return {'message': 'User not found'}, 404
 
+    @jwt_required()
     def delete(self, user_id):
         user = User.find_by_id(user_id)
         if user:
@@ -56,5 +60,6 @@ class UserResource(Resource):
 
 
 class UserListResource(Resource):
+    @jwt_required()
     def get(self):
         return {'users': [user.json() for user in User.query.all()]}

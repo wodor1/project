@@ -48,7 +48,7 @@ def create_tables() -> None:
 def home():
     return render_template('home.html.j2')
 
-@app.route('/incidents')
+@app.route('/incidentpage')
 def incidents():
     return render_template('incidents.html.j2')
 
@@ -71,13 +71,13 @@ def register():
     return render_template('register.html.j2')
 
 # API végpontok
-api.add_resource(UserResource, '/users', '/users/<int:user_id>')
+api.add_resource(UserResource, '/user', '/user/<int:user_id>')
 api.add_resource(UserListResource, '/users')
-api.add_resource(DeviceResource, '/devices', '/devices/<int:device_id>')
+api.add_resource(DeviceResource, '/device', '/device/<int:device_id>')
 api.add_resource(DeviceListResource, '/devices')
-api.add_resource(IncidentResource, '/incidents', '/incidents/<int:incident_id>')
+api.add_resource(IncidentResource, '/incident', '/incident/<int:incident_id>')
 api.add_resource(IncidentListResource, '/incidents')
-api.add_resource(NetworkResource, '/networks', '/networks/<int:network_id>')
+api.add_resource(NetworkResource, '/network', '/network/<int:network_id>')
 api.add_resource(NetworkListResource, '/networks')
 api.add_resource(Incident_DeviceResource, '/incidents/<int:incident_id>/devices/<int:device_id>')
 api.add_resource(Incident_NetworkResource, '/incidents/<int:incident_id>/networks/<int:network_id>')
