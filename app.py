@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
@@ -6,6 +6,8 @@ from flask_cors import CORS
 import os
 from db import db
 from web_auth import init_app as init_auth_app
+from werkzeug.exceptions import BadRequestKeyError
+from datetime import timedelta
 
 from models.mixin_model import MixinModel
 from models.user import User
@@ -32,6 +34,9 @@ db_uri: str = f'sqlite:///{db_path}'
 app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
 app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
+# app.secret_key = os.getenv('FLASK_SECRET_KEY')
+app.secret_key = 'secret-key'
 
 api = Api(app)
 jwt = JWTManager(app)
@@ -50,7 +55,8 @@ def home():
 
 @app.route('/incidentpage')
 def incidents():
-    return render_template('incidents.html.j2')
+    incidents = Incident.query.all()  # Fetch all incidents from the database
+    return render_template('incidents.html.j2', incidents=incidents)
 
 @app.route('/documentations')
 def documentations():
@@ -69,6 +75,47 @@ def register():
         else:
             return jsonify(response[0])
     return render_template('register.html.j2')
+
+@app.route('/login_web', methods=['GET', 'POST'])
+def login_web():
+    if request.method == 'POST':
+        try:
+            username = request.form['username']
+            password = request.form['password']
+        except BadRequestKeyError:
+            flash("Username or Password not provided")
+            return render_template('login.html.j2', error="Username or Password not provided")
+
+        if not username or not password:
+            flash("Username or Password cannot be empty")
+            return render_template('login.html.j2', error="Username or Password cannot be empty")
+
+        response = Auth().post()
+
+        if response[1] != 200:
+            flash("Wrong username or password")
+            return render_template('login.html.j2', error="Wrong username or password")
+        else:
+            flash("Login successful")
+            return redirect(url_for('home'))  # Redirect to home page after successful login
+
+    return render_template('login.html.j2')
+
+@app.route('/incident/update/<int:incident_id>', methods=['GET', 'POST'])
+def update_incident(incident_id):
+    resource = IncidentResource()
+    if request.method == 'POST':
+        resource.put(incident_id)
+        return redirect(url_for('incidents'))
+    else:
+        incident = Incident.find_by_id(incident_id)
+        return render_template('update_incident.html.j2', incident=incident)
+
+@app.route('/incident/delete/<int:incident_id>', methods=['POST'])
+def delete_incident(incident_id):
+    resource = IncidentResource()
+    resource.delete(incident_id)
+    return redirect(url_for('incidentlist'))
 
 # API végpontok
 api.add_resource(UserResource, '/user', '/user/<int:user_id>')

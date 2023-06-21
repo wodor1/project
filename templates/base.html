@@ -8,6 +8,10 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='style.css') }}"
     />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <header>
@@ -16,9 +20,18 @@
     <nav>
       <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/incidentpage">Incidents</a></li>
-        <li><a href="/documentations">Documentations</a></li>
+        {% if current_user.is_authenticated %}
+        <li><a href="/incidentreport">Incident reporting</a></li>
+        {% endif %} {% if current_user.is_authenticated %}
+        <li><a href="{{ url_for('incidentlist') }}">Incident list</a></li>
+        {% endif %}
+        <li><a href="/documentations">Useful links</a></li>
         <li><a href="/about">About</a></li>
+        {% if current_user.is_authenticated %}
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        {% endif %} {% if not current_user.is_authenticated %}
+        <li><a href="{{ url_for('login') }}">Login</a></li>
+        {% endif %}
       </ul>
     </nav>
     <main>

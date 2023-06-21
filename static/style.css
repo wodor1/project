@@ -1,18 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 html {
+  background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.1)), url("/static/images/background.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
   position: relative;
-  min-height: 100%;
+  min-height: 100vh;
+  background-color: #0a0a0a;
+  color: #f5f5f5;
 }
 
 body {
-  background-image: url("/static/images/background.jpg");
-  background-size: cover;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   color: white;
   margin-bottom: 60px; /* A lábléc magassága */
 }
@@ -24,13 +30,21 @@ header, main, footer {
   box-sizing: border-box;
 }
 
+header {
+  padding: 20px;
+  text-align: center;
+  color: #f5f5f5;
+  font-size: 1.9em;
+  font-weight: bold;
+}
+
 a {
   color: lightgray;
 }
 
 nav ul li a {
   text-decoration: none;  /* Az aláhúzás eltávolítása */
-  color: white;  /* A szöveg színe fehér */
+  color: #f5f5f5;  /* A szöveg színe fehér */
   font-size: 18px;  /* A betűméret növelése */
   transition: color 0.5s;  /* Színátmenet beállítása fél másodpercre */
 }
@@ -42,11 +56,64 @@ nav ul li a:hover {
 nav ul {
   list-style-type: none;
   padding: 0;
+  display: flex;
+  justify-content: space-between; /* This will add space between your links */
 }
 
 nav ul li {
-  display: inline;
-  margin: 0 10px;
+  margin-right: 20px;  /* Adjunk 20px jobb margót minden elemhez */
+  margin-bottom: 10px;
+}
+
+ul li a img {
+  border: 2px solid #f5f5f5; /* adj keretet a képeknek */
+  border-radius: 5px; /* kerekítse le a keret sarkait */
+}
+
+.resource-list {
+  list-style: none;
+  display: flex;        /* Flexbox létrehozása a listaelemekből */
+  flex-wrap: wrap;      /* Új sorba teszi az elemeket, ha nincs elég hely */
+  justify-content: space-between;  /* Egyenletesen elosztja a helyet az elemek között */
+}
+
+.resource-list li {
+  width: 45%;           /* Az egyes listaelemek szélessége kisebb, mint a konténer fele, ezért 2 elem lesz egy sorban */
+  margin-bottom: 20px;  /* Szabályozza a sorok közötti távolságot */
+}
+
+.resource-list a {
+  text-decoration: none;
+  display: flex;        /* Flexbox létrehozása az "a" elemen belül, hogy a kép és a szöveg egymás mellett jelenjen meg */
+  align-items: center;  /* Vertikálisan középre igazítja a képet és a szöveget */
+}
+
+.resource-list img {
+  margin-right: 10px;   /* Ad egy kis margót a kép és a szöveg között */
+}
+
+.resource-text {
+  font-size: 20px;   /* változtasd meg a betűméretet */
+  color: whitesmoke;    /* változtasd meg a szöveg színét */
+}
+
+nav ul li:last-child {
+  margin-right: 0;  /* Az utolsó elem jobb margóját nullára állítjuk */
+  margin-left: auto;
+}
+
+.content-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.content-row h3 {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.content-row p {
+  flex: 2;
 }
 
 footer {
@@ -54,12 +121,90 @@ footer {
   bottom: 0;
   width: 100%;
   height: 60px; /* A lábléc magassága */
-  background: rgba(0,0,0,0.5); /* Fekete háttér, 50%-os átlátszósággal */
+  background: none;
+  color: #f5f5f5;
+  text-align: center;
+  padding: 20px;
+}
+
+.incident-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.incident-table th, .incident-table td {
+  border: 1px solid #f5f5f5;
+  padding: 10px;
+  text-align: left;
+}
+
+.incident-table th {
+  background-color: #0a0a0a;
+  color: #f5f5f5;
+}
+
+.incident-table tr:nth-child(even) {
+  background-color: #1a1a1a;
+}
+
+.incident-table tr:nth-child(odd) {
+  background-color: #0a0a0a;
+}
+
+.incident-table td {
+  color: #f5f5f5;
+}
+
+.update-btn, .delete-btn {
+  margin: 0 5px;
+  padding: 5px;
+  font-size: 0.8em;
+}
+
+.update-btn {
+  background-color: #4CAF50; /* green */
+  border: none;
   color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transition-duration: 0.4s; /* transition effect */
+  cursor: pointer;
+}
+
+.update-btn:hover {
+  background-color: #45a049;
+}
+
+.delete-btn {
+  background-color: #f44336; /* red */
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transition-duration: 0.4s; /* transition effect */
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #da190b;
 }
 
 @media (max-width: 600px) {
   header, main, footer {
     padding: 10px;
+  }
+
+  nav ul li {
+    margin: 0 10px;  /* Növeld meg a margó méretét kisebb képernyőkön */
+  }
+
+  nav ul li:last-child {
+    margin-right: 0;  /* Az utolsó elem jobb margóját nullára állítjuk */
+  }
+
+  footer {
+    height: auto;
   }
 }

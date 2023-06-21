@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Incident Report</h1>
+<form action="{{ url_for('incidentreport') }}" method="post">
+    <label for="type">Type:</label><br>
+    <input type="text" id="type" name="type" required><br>
+    <label for="status">Status:</label><br>
+    <input type="text" id="status" name="status" required><br>
+    <label for="description">Description:</label><br>
+    <input type="text" id="description" name="description"><br>
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}

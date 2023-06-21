@@ -1,20 +1,36 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
+
 {% block content %}
-<h2>Login</h2>
-<form method="POST" action="/login">
-  <div>
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username">
-  </div>
-  <div>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password">
-  </div>
-  <div>
-    <input type="submit" value="Login">
-  </div>
-</form>
-<div>
-  <a href="/register"><button type="button">Register</button></a>
+<h2>Welcome to the Cyber Security Incident Management System</h2>
+<p>In an interconnected world, digital threats are more pervasive and destructive than ever before. Cyber attacks, from data breaches to ransomware, can compromise not just your business operations, but also your customer's trust, reputation, and financial stability. This is where we come in. Welcome to the Cyber Security Incident Management System – your powerful ally in the battle against cyber threats.</p>
+
+<div class="content-row">
+<h3>Proactive Protection is Key</h3>
+<p>In the realm of cyber security, prevention is not just better than cure – it's essential. Our system is designed to ensure your digital environment remains safe and secure by constantly monitoring and identifying potential vulnerabilities. We help you stay ahead of threats by providing real-time updates, allowing you to act swiftly and effectively to mitigate potential harm.</p>
 </div>
+
+<img src="{{ url_for('static', filename='images/img1.jpg') }}" alt="Image 1" width="600">
+
+<div class="content-row">
+<h3>Incident Management Made Simple</h3>
+<p>With the multitude of cyber threats today, incident management has become an imperative. Our system not only records all cyber security incidents but also helps analyze and classify them based on severity. Whether you're dealing with phishing attacks, malware intrusions, or data breaches, every incident is documented for further analysis and future reference.</p>
+</div>
+
+<img src="{{ url_for('static', filename='images/img3.jpg') }}" alt="Image 1" width="600">
+
+<div class="content-row">
+<h3>A Comprehensive Cyber Security Solution</h3>
+<p>Our Cyber Security Incident Management System integrates seamlessly into your existing infrastructure, providing a comprehensive view of your security landscape. With the ability to track and manage all your incidents in one place, you can devote more time to strengthening your defenses and less time on cumbersome administrative tasks.</p>
+</div>
+
+<img src="{{ url_for('static', filename='images/img2.jpg') }}" alt="Image 1" width="600">
+
+<div class="content-row">
+<h3>Understand, Predict, and Prevent Cyber Attacks</h3>
+<p>By maintaining a complete record of all security incidents, our system aids in understanding the nature of threats your organization faces. Using this data, it is possible to anticipate and predict future attacks, enabling you to strengthen your preventive measures and decrease potential risks.</p>
+</div>
+
+<p>We understand the magnitude of trust you place in us to protect your digital assets, and we are committed to meeting your expectations. With the Cyber Security Incident Management System, navigate the digital world with confidence and peace of mind, knowing your cyber security is in capable hands.</p>
+
+<h3>Join us today, and let's build a safer digital future together.</h3>
 {% endblock %}

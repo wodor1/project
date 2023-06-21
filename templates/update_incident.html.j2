@@ -1,0 +1,22 @@
+{% extends "base.html" %} 
+
+{% block content %}
+
+<h3>Update Incident</h3>
+
+<form method="POST">
+  <div class="form-group">
+    <label for="type">Type</label>
+    <input type="text" class="form-control" id="type" name="type" value="{{ incident.type }}" required>
+  </div>
+  <div class="form-group">
+    <label for="type">Status</label>
+    <input type="text" class="form-control" id="type" name="type" value="{{ incident.status }}" required>
+  </div><div class="form-group">
+    <label for="type">Description</label>
+    <input type="text" class="form-control" id="type" name="type" value="{{ incident.description }}" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% endblock %}

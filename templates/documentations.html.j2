@@ -1,19 +1,68 @@
-{% extends "base.html" %} {% block content %}
-<h2>Documentations</h2>
-<p>Welcome to the Incident Management System.
-  <br>
-  <br>
-  Please log in to continue!
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-</p>
+{% extends "base.html" %} 
+
+{% block content %}
+<h2>Cybersecurity Resources</h2>
+
+{% if current_user.is_authenticated %}
+    <p>Welcome, {{ current_user.username }}!</p>
+    <h3>Top Cybersecurity Websites</h3>
+    <ul class="resource-list">
+        <li>
+            <a href="https://krebsonsecurity.com/" target="_blank">
+                <img src="{{ url_for('static', filename='images/krebs.png') }}" alt="Krebs on Security" width="150" >
+                <span class="resource-text">Krebs on Security</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.schneier.com/" target="_blank">
+                <img src="{{ url_for('static', filename='images/schneier.png') }}" alt="Schneier on Security" width="150">
+                <span class="resource-text">Schneier on Security</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.troyhunt.com/" target="_blank">
+                <img src="{{ url_for('static', filename='images/troyhunt.png') }}" alt="Troy Hunt's Blog" width="150">
+                <span class="resource-text">Troy Hunt's Blog</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.threatpost.com/" target="_blank">
+                <img src="{{ url_for('static', filename='images/threatpost.png') }}" alt="Threatpost" width="150">
+                <span class="resource-text">Threatpost</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.wired.com/category/security" target="_blank">
+                <img src="{{ url_for('static', filename='images/wired.png') }}" alt="Wired Security" width="150">
+                <span class="resource-text">Wired Security</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://thehackernews.com/" target="_blank">
+                <img src="{{ url_for('static', filename='images/hackernews.png') }}" alt="The Hacker News" width="150">
+                <span class="resource-text">The Hacker News</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.infosecurity-magazine.com/" target="_blank">
+                <img src="{{ url_for('static', filename='images/infosecmag.png') }}" alt="Infosecurity Magazine" width="150">
+                <span class="resource-text">Infosecurity Magazine</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.zdnet.com/blog/security/" target="_blank">
+                <img src="{{ url_for('static', filename='images/zdnet.png') }}" alt="ZDNet's Zero Day" width="150">
+                <span class="resource-text">ZDNet's Zero Day</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.helpnetsecurity.com/" target="_blank">
+                <img src="{{ url_for('static', filename='images/helpnet.png') }}" alt="Help Net Security" width="150">
+                <span class="resource-text">Help Net Security</span>
+            </a>
+        </li>
+    </ul>
+{% else %}
+    <p>Please log in to continue!</p>
+{% endif %}
 {% endblock %}
