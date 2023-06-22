@@ -10,7 +10,7 @@ To run the project locally, follow the steps below:
 
 1. Clone the repository to your local machine.
 
-git clone https://github.com/yourusername/your-repo-name.git
+git clone https://github.com/wodor1/project.git
 
 2. Navigate to the project directory.
 
@@ -29,8 +29,9 @@ flask run
 The application contains the following pages:
 
 - **Home:** The landing page of the website.
-- **Incidents:** Page for viewing and managing cybersecurity incidents.
-- **Documentations:** Page where users can find further information and documentation.
+- **Incident reporting:** Formular for reporting.
+- **Incident list:** Page for viewing and managing cybersecurity incidents.
+- **Useful links:** Page where users can find further information and documentation.
 - **About:** Page that provides information about the system and its creator.
 
 ## Styling
