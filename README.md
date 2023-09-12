@@ -21,8 +21,11 @@ cd your-repo-name
 pip install -r requirements.txt
 
 4. Start the Flask server.
+
 Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
+
 venv\Scripts\activate
+
 flask run
 
 ## Usage
